@@ -8,10 +8,11 @@ from sequence_generators import fibonacci
 
 def make_json_app():
     """
-    Create a JSON oriented Flask app.
+    Creates a JSON-oriented Flask app.
     All error responses will contain JSON like this (just an example):
     { "message": "405: Method Not Allowed" }
     """
+
     def make_json_error(ex):
         response = jsonify(message=str(ex))
         response.status_code = (ex.code
@@ -43,11 +44,11 @@ def fibonacci_sequence(size):
 
 @app.route('/<invalid_path>')
 def handle_invalid_path(invalid_path):
-        response = jsonify(message=('Size must be a positive integer '
-                                    '<= to 1000. Actual %s' % invalid_path))
-        response.status_code = 400
-        return response
+    response = jsonify(message=('Size must be a positive integer. '
+                                'Actual %s' % invalid_path))
+    response.status_code = 400
+    return response
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
