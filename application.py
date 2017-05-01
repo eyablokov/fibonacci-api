@@ -1,5 +1,3 @@
-#!/fibonacci/usr/fibonacci/bin/fibonacci/env python3
-
 from flask import Flask, jsonify
 from werkzeug.exceptions import default_exceptions
 from werkzeug.exceptions import HTTPException
@@ -20,18 +18,18 @@ def make_json_app():
                                 else 500)
         return response
 
-    app = Flask(__name__)
+    application = Flask(__name__)
 
     for code in default_exceptions.keys():
-        app.error_handler_spec[None][code] = make_json_error
+        application.error_handler_spec[None][code] = make_json_error
 
-    return app
-
-
-app = make_json_app()
+    return application
 
 
-@app.route('/fibonacci/<int:size>')
+application = make_json_app()
+
+
+@application.route('/fibonacci/<int:size>')
 def fibonacci_sequence(size):
     if size > 1000:
         response = jsonify(message=('Size must be a positive integer '
@@ -42,7 +40,7 @@ def fibonacci_sequence(size):
     return jsonify(fibonacci=fibonacci.generate_sequence(size))
 
 
-@app.route('/fibonacci/<invalid_path>')
+@application.route('/fibonacci/<invalid_path>')
 def handle_invalid_path(invalid_path):
     response = jsonify(message=('Size must be a positive integer. '
                                 'Actual %s' % invalid_path))
@@ -51,4 +49,4 @@ def handle_invalid_path(invalid_path):
 
 
 if __name__ == '__main__':
-    app.run()
+    application.run(debug=True)

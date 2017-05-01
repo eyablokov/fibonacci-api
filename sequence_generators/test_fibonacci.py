@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 from unittest import TestCase
 from sequence_generators import fibonacci
 

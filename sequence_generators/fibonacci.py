@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 def generate_sequence(size):
     sequence = [0, 1]
     if size < 3:

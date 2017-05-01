@@ -1,14 +1,12 @@
-#!/fibonacci/usr/fibonacci/bin/fibonacci/env python3
-
 from unittest import TestCase
 from flask import json
 from mock import patch
-from resources import app
+from application import application
 
 
 class TestWebResource(TestCase):
     def setUp(self):
-        self.client = app.test_client()
+        self.client = application.test_client()
 
     def test_size_is_negative_number_returns_400(self):
         response = self.client.get('/fibonacci/-1')
