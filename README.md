@@ -40,6 +40,3 @@ invalid path - returns 404:
 
 `curl -i -X POST "http://localhost:5000/fibonacci/bad/bad"`
 
-Running tests on different Python versions using Tox. Currently configured to run against py27 and py34:
-
-`tox`
