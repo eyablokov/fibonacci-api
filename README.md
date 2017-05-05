@@ -3,40 +3,37 @@ fibonacci-api
 
 The REST API for generating [Fibonacci sequence](https://en.wikipedia.org/wiki/Fibonacci_sequence).
 
+Using this repository, you'll deploy Flask REST API application on AWS, with Terraform, Ansible and Makefile.
 
-To install requirements:
 
-`pip install -r requirements.txt`
+Dependencies:
+- bash 4+;
+- fully configured aws cli, tested with the AWS free tier;
+- Ansible 2+;
+- Terraform v0.6+;
+- make or gmake.
 
-To run tests:
+Tested on Ubuntu 17.04 with default repos.
 
-`nosetests`
+Description:
+  The script is driven by make, in order to provide consistent user/ops experience. It seems that terraform in the current version does not support creating keys for AWS, so some interaction with awscli would have been required anyways.
 
-To run the application:
+The instance config is done with ansible, by reusing the code in the master branch. Migrating this part to the chef provisoner would probably make more sense down the road.
 
-`python resources.py`
-
-Test in your browser:
-
-[http://localhost:5000/fibonacci/10](http://localhost:5000/fibonacci/10)
-
-Test using curl command:
-
-`curl -i -X GET "http://localhost:5000/fibonacci/10"`
-
-invalid path parameter with number greater than upper boundary - returns 400:
-
-`curl -i -X GET "http://localhost:5000/fibonacci/10000"`
-
-invalid path parameter with negative number - returns 400:
-
-`curl -i -X GET "http://localhost:5000/fibonacci/-10"`
-
-invalid http method - returns 405:
-
-`curl -i -X POST "http://localhost:5000/fibonacci/10000"`
-
-invalid path - returns 404:
-
-`curl -i -X POST "http://localhost:5000/fibonacci/bad/bad"`
-
+Usage:
+  git clone git@github.com:marikgoran/hello-aws.git
+  cd hello-aws
+  git checkout terraform
+  # create a file called terraform.tfvars - this file is excluded from the repo in .gitignore. 
+  # the file should have the AWS credentials in a format:
+  # access_key = "abc"
+  # secret_key = "xyz"
+  ## 
+  make            ( this will print the help page ) 
+  # 
+  make prep       ( create the keys and security group with awscli )
+  make instance   ( the heavy lifting is done by terraform here, the terraform output will be the IP addresses of the instance)
+  make info       ( shortcut for terraform output )
+  make deploy     ( run the ansible playbook ) 
+  make hello      ( testing the service with curl)
+  make destroy    ( terraform destroy && awscli delete keys and groups )

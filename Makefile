@@ -34,7 +34,7 @@ nose:
 	ssh -i terraform.pem -o StrictHostKeyChecking=no ubuntu@$(publicIP) 'nosetests /opt/fibonacci-api/test_resources.py'
 
 test:
-	curl -i -X GET $(publicIP):8000
+	curl -i -X GET "$(publicIP):8000/fibonacci/10"
 
 info:
 	@terraform output
