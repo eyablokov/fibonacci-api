@@ -44,6 +44,7 @@ The file should have the AWS credentials in a format:
 `make info`     (shortcut for terraform output)
 
 `make deploy`   (run the ansible playbook)
+
 `make test`     (testing the service with curl)
 
 `make nose`     (testing with [nose](http://nose.readthedocs.io))
