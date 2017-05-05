@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: Install software
+    apt:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - git
+      - gunicorn
+      - python3-pip
+
+  - name: Clone the repo
+    git: repo=https://github.com/eyablokov/fibonacci-api.git dest=/opt/fibonacci-api
+
+  - name: Install requirements
+    pip: requirements=/opt/fibonacci-api/requirements.txt
+
+  - name: Run gunicorn
+    command: gunicorn3 -c /opt/fibonacci-api/config.py application:application
