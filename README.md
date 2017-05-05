@@ -22,21 +22,30 @@ The instance config is done with Ansible. Migrating this part to the Chef provis
 
 Usage:
 
-  `git clone git@github.com:eyablokov/fibonacci-api.git`
+`git clone git@github.com:eyablokov/fibonacci-api.git`
 
-  `cd fibonacci-api`
+`cd fibonacci-api`
 
-  # Create a file called `terraform.tfvars` - this file is excluded from the repo in `.gitignore`. 
-  # The file should have the AWS credentials in a format:
-  # `access_key = "abc"`
-  # `secret_key = "xyz"`
+Create a file called `terraform.tfvars` - this file is excluded from the repo in `.gitignore`. 
+The file should have the AWS credentials in a format:
 
-  `make`          (this will print the help page)
+`access_key = "abc"`
 
-  `make prep`     (create the keys and security group with awscli)
-  `make instance` (the heavy lifting is done by terraform here, the terraform output will be the IP addresses of the instance)
-  `make info`     (shortcut for terraform output)
-  `make deploy`   (run the ansible playbook)
-  `make test`     (testing the service with curl)
-  `make nose`     (testing with [nose](http://nose.readthedocs.io))
-  `make destroy`  (terraform destroy && awscli delete keys and groups)
+`secret_key = "xyz"`
+
+
+
+`make`          (this will print the help page)
+
+`make prep`     (create the keys and security group with awscli)
+
+`make instance` (the heavy lifting is done by terraform here, the terraform output will be the IP addresses of the instance)
+
+`make info`     (shortcut for terraform output)
+
+`make deploy`   (run the ansible playbook)
+`make test`     (testing the service with curl)
+
+`make nose`     (testing with [nose](http://nose.readthedocs.io))
+
+`make destroy`  (terraform destroy && awscli delete keys and groups)
